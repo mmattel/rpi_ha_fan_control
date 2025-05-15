@@ -11,4 +11,4 @@ Then use these values in the fan_control_settings code to activate them.
 
 Note that the Pi caps CPU processing if the temperature exceeds 80°.
 
-Any change in the fan speed is logged together with the CPU temp in the syslog.
+Any change in the fan speed is logged together with the CPU temp and the hysteresis in the syslog.
