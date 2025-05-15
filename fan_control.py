@@ -10,7 +10,11 @@ import sys
 import time
 import syslog
 import RPi.GPIO as GPIO
-from fan_control_settings import * # import all variables defined in the settings file for direct usage
+from fan_control_settings import * # globally import all variables defined in the settings file for direct usage
+
+def logging(text: str) -> None:
+	if enable_syslog:
+		syslog.syslog(syslog.LOG_INFO, text)
 
 def main() -> None:
 	# Setup GPIO pin
@@ -30,12 +34,13 @@ def main() -> None:
 		print("Quantity of temp and speed entries differ, exiting.")
 		exit(0)
 
-	syslog.syslog(syslog.LOG_INFO, 'Started temperature control by PWM fan')
+	logging('Started temperature control by PWM fan')
+
 	try:
 		while True:
 			# Read CPU temperature
 			cpuTempFile = open("/sys/class/thermal/thermal_zone0/temp", "r")
-			cpuTemp = float(cpuTempFile.read()) / 1000
+			cpuTemp = round(float(cpuTempFile.read()) / 1000, 1)
 			cpuTempFile.close()
 
 			# Calculate desired fan speed
@@ -62,7 +67,7 @@ def main() -> None:
 					if (fanSpeed != fanSpeedOld and (fanSpeed >= FAN_MIN or fanSpeed == 0)):
 						fan.ChangeDutyCycle(fanSpeed)
 						fanSpeedOld = fanSpeed
-						syslog.syslog(syslog.LOG_INFO, 'CPU Temp: ' + str(cpuTemp) + '° Fan: ' + str(fanSpeed) + '%')
+						logging('CPU Temp: ' + str(cpuTemp) + '° Hysteresis: ' + str(hyst) + '° Fan: ' + str(fanSpeed) + '% ')
 				cpuTempOld = cpuTemp
 
 			# Wait until next refresh
@@ -74,6 +79,8 @@ def main() -> None:
 		print("\rFan control interrupted by keyboard")
 		GPIO.cleanup()
 		sys.exit()
+	finally:
+		logging('Program exited')
 
 if __name__ == "__main__":
 	main()
