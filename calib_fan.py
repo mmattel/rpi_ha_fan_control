@@ -45,7 +45,8 @@ def main() -> None:
 			cpuTemp = round(float(cpuTempFile.read()) / 1000, 2)
 			cpuTempFile.close()
 
-			fanSpeed=float(input("CPU-Temp = " + cpuTemp + "° Fan Speed: "))
+			input_text = "CPU-Temp = " + cpuTemp + "° Fan Speed: "
+			fanSpeed=float(input(input_text))
 			fan.ChangeDutyCycle(fanSpeed)
 
 			# Wait until next refresh
