@@ -10,7 +10,7 @@ import sys
 import time
 import syslog
 import RPi.GPIO as GPIO
-from fan_control.settings import * # import all variables defined in the settings file for direct usage
+from fan_control_settings import * # import all variables defined in the settings file for direct usage
 
 def main() -> None:
 	# Setup GPIO pin
