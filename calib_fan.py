@@ -45,7 +45,7 @@ def main() -> None:
 			cpuTemp = round(float(cpuTempFile.read()) / 1000, 2)
 			cpuTempFile.close()
 
-			input_text = "CPU-Temp = " + cpuTemp + "° Fan Speed: "
+			input_text = "CPU-Temp = " + str(cpuTemp) + "° Fan Speed: "
 			fanSpeed=float(input(input_text))
 			fan.ChangeDutyCycle(fanSpeed)
 
