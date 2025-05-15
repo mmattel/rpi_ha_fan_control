@@ -41,7 +41,7 @@ def main() -> None:
 			# Calculate desired fan speed
 			if abs(cpuTemp - cpuTempOld) > hyst:
 				# Below first value, fan will run at min speed.
-					if cpuTemp < tempSteps[0]:
+				if cpuTemp < tempSteps[0]:
 					fanSpeed = speedSteps[0]
 
 				# Above last value, fan will run at max speed
@@ -59,8 +59,7 @@ def main() -> None:
 											+ speedSteps[i], 1)
 
 				if fanSpeed != fanSpeedOld:
-					if (fanSpeed != fanSpeedOld
-							and (fanSpeed >= FAN_MIN or fanSpeed == 0)):
+					if (fanSpeed != fanSpeedOld and (fanSpeed >= FAN_MIN or fanSpeed == 0)):
 						fan.ChangeDutyCycle(fanSpeed)
 						fanSpeedOld = fanSpeed
 						syslog.syslog(syslog.LOG_INFO, 'CPU Temp: ' + str(cpuTemp) + '° Fan: ' + str(fanSpeed) + '%')
