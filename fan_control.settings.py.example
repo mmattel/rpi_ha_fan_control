@@ -1,0 +1,20 @@
+# add configurations for fan_control
+#
+# because this file only contains variables, it is safe to import it with *
+#
+# controls fan speed by pwm with configurables:
+# - pwm gpio pin
+# - min fan speed (test with calib_fan.py the minimum setting required)
+# - temp/speed array (note that you must have a temp value for zero speed !)
+
+FAN_PIN = 18   # BCM pin used to drive transistor's base
+WAIT_TIME = 1  # [s] Time to wait between each refresh
+FAN_MIN = 30   # [%] Fan minimum speed.
+PWM_FREQ = 25  # [Hz] Change this value if fan has strange behavior
+
+# Configurable temperature and fan speed steps
+tempSteps = [52, 55, 60, 65]   # [°C]
+speedSteps = [0, 45, 70, 100]  # [%]
+
+# Fan speed will change only when the temperature difference is higher than the hysteresis
+hyst = 1
