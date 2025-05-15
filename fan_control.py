@@ -63,7 +63,7 @@ def main() -> None:
 							and (fanSpeed >= FAN_MIN or fanSpeed == 0)):
 						fan.ChangeDutyCycle(fanSpeed)
 						fanSpeedOld = fanSpeed
-						syslog.syslog(syslog.LOG_INFO, 'CPU Temp: ' + cpuTemp + '° Fan: ' + fanSpeed + '%')
+						syslog.syslog(syslog.LOG_INFO, 'CPU Temp: ' + str(cpuTemp) + '° Fan: ' + str(fanSpeed) + '%')
 				cpuTempOld = cpuTemp
 
 			# Wait until next refresh
