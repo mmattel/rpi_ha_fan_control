@@ -1,0 +1,7 @@
+# Copy the fan_control.service.example file, rename it to fan_control.service
+# and adapt the path to its location 
+fan_control.service
+#
+# Copy the fan_control_settings.py.example file, rename it to fan_control_settings.py
+# and adapt the variables according your needs 
+fan_control_settings.py
